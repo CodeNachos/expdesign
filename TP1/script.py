@@ -5,9 +5,8 @@ from scipy.io.wavfile import write
 
 fs, audio_signal = read('PeriodicAlong.wav')
 print("recording...",end="", flush=True)
-#sd.play(audio_signal, fs)
-recorded_signal = sd.rec(int(10 * fs), samplerate=fs, channels=1)
-sd.wait()
-
+recorded_signal = sd.playrec(audio_signal,channels=1,samplerate=fs, blocksize=1024, latency="high") 
+sleep(10)
 print("end")
+sd.stop()
 write("output.wav", fs, recorded_signal)
