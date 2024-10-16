@@ -1,0 +1,93 @@
+EXPERIMENTAL PROTOCOL
+
+- Conditions:
+
+    Audio signals     : Periodic or Aperiodic 
+    Order of playback : Default random, but can be specified
+    Duration          : How long should the signals be played
+
+- Protocol:
+
+    1.  Plug the headphones and the microphone in output and input of your 
+        sound card 
+    
+    2.  If necessary, configure the inputs/outputs of your soundcards 
+    
+    3.  Bring in and briefly explain to the current subject the task.
+    
+    4.  Make sure to note the conditions and identify the subject for this
+        trial in a journal.
+
+    5.  Conduct the experiment using the python script 'experimental_script',
+        making sure that its configured with the desired conditions.
+    
+    6.  Input the subject's id when prompted in the terminal by the program.
+    
+    7.  Let the subject follow the instructions and perform the 2 experimental
+        tasks under supervision.
+    
+    8.  Verify that the audio recordings and plots were successfully saved.
+
+- Conventions:
+    
+    1. File names: 
+        Output files from the experiment scrip are named as:
+                [subject id]_[audio signal]_task
+        File extension will depend on the output type, '.wav' for the
+        recordings and '.png' for the signal plots.
+    
+    2. Subject id: 
+        A positive integer value derived from the time the experiment was 
+        executed in the format: [Day][Hour][Minutes].
+        Ex: If the trial is conducted the 15th of the month at 14h30 then 
+        the subject's id is 151430
+    
+    3. Task duration:
+        We decided that 25 seconds is a good duration not to fatigue subjects
+        and are still significant enough, making sure that the lengh of the 
+        audio signals are smaller than the duration.
+    
+- Experiment Flow:
+
+    This is the text interface that is provided by the experiment script:
+
+
+        Please enter subject id: 0
+
+        ------ INSTRUCTIONS -----
+        You will be presented with 2
+        consecutive tasks that follow
+        the same protocol.
+        Once each task starts, tap on
+        the microphone as soon as you
+        hear a beat for every beat.
+        Each task will last 25 seconds.
+        ------ ------------ -----
+
+        Press enter when ready to continue...
+
+        ------ Task running -----
+        Recording from microphone...
+        Tap whenever you hear a beat...
+        Recording completed!
+        [LOG] Recording saved to output/recordings/0_Periodic_task.wav
+        [LOG] Signals plot saved to output/plots/0_Periodic_task.png
+        ----- Task completed ----
+
+        Task 1 completed, one task left.
+        Press enter when ready to continue...
+
+        ------ Task running -----
+        Recording from microphone...
+        Tap whenever you hear a beat...
+        Recording completed!
+        [LOG] Recording saved to output/recordings/0_Aperiodic_task.wav
+        [LOG] Signals plot saved to output/plots/0_Aperiodic_task.png
+        ----- Task completed ----
+
+        All tasks completed, thanks for participating!
+        ---
+
+
+    
+

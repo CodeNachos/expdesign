@@ -1,0 +1,7 @@
+- SUBJECT 0: (Test trial)
+    Conditions:
+        Audio signals     : Periodic and Aperiodic 
+        Order of playback : Periodic then Aperiodic
+        Duration          : 25 seconds
+
+- ... 
