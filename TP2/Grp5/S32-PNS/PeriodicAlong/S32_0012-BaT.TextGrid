@@ -1,0 +1,50 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 32.072 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "Useful" 
+        xmin = 0 
+        xmax = 32.072 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0 
+            xmax = 10.365258946402264 
+            text = "" 
+        intervals [2]:
+            xmin = 10.365258946402264 
+            xmax = 14.366457634263407 
+            text = "rep 1" 
+        intervals [3]:
+            xmin = 14.366457634263407 
+            xmax = 18.333163229987814 
+            text = "rep 2" 
+        intervals [4]:
+            xmin = 18.333163229987814 
+            xmax = 22.472334286395892 
+            text = "rep 3" 
+        intervals [5]:
+            xmin = 22.472334286395892 
+            xmax = 26.473532974257036 
+            text = "rep 4" 
+        intervals [6]:
+            xmin = 26.473532974257036 
+            xmax = 32.072 
+            text = "rep 5" 
+    item [2]:
+        class = "TextTier" 
+        name = "Bips" 
+        xmin = 0 
+        xmax = 32.072 
+        points: size = 0 
+    item [3]:
+        class = "TextTier" 
+        name = "Taps" 
+        xmin = 0 
+        xmax = 32.072 
+        points: size = 0 

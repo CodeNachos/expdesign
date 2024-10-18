@@ -14,24 +14,24 @@ item []:
         intervals: size = 5 
         intervals [1]:
             xmin = 0 
-            xmax = 16.03027707325019 
+            xmax = 16.23063244924798 
             text = "" 
         intervals [2]:
-            xmin = 16.03027707325019 
-            xmax = 20.30988953136635 
-            text = "Rep1" 
+            xmin = 16.23063244924798 
+            xmax = 20.113275334779626 
+            text = "rep 1" 
         intervals [3]:
-            xmin = 20.30988953136635 
-            xmax = 24.27249365925168 
-            text = "Rep2" 
+            xmin = 20.113275334779626 
+            xmax = 24.195028111877 
+            text = "rep 2" 
         intervals [4]:
-            xmin = 24.27249365925168 
-            xmax = 28.325671595774388 
-            text = "Rep3" 
+            xmin = 24.195028111877 
+            xmax = 28.177225943191512 
+            text = "rep 3 " 
         intervals [5]:
-            xmin = 28.325671595774388 
+            xmin = 28.177225943191512 
             xmax = 30.408 
-            text = "" 
+            text = "rep 4" 
     item [2]:
         class = "TextTier" 
         name = "Bips" 
