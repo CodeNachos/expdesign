@@ -37,10 +37,7 @@ EXPERIMENTAL PROTOCOL
         recordings and '.png' for the signal plots.
     
     2. Subject id: 
-        A positive integer value derived from the time the experiment was 
-        executed in the format: [Day][Hour][Minutes].
-        Ex: If the trial is conducted the 15th of the month at 14h30 then 
-        the subject's id is 151430
+        A positive integer value, non overlapping.
     
     3. Task duration:
         We decided that 25 seconds is a good duration not to fatigue subjects

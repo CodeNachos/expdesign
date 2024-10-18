@@ -1,7 +1,25 @@
 - SUBJECT 0: (Test trial)
-    Conditions:
+	Conditions:
         Audio signals     : Periodic and Aperiodic 
-        Order of playback : Periodic then Aperiodic
+        Order of playback : Periodic then Aperiodic (random order)
         Duration          : 25 seconds
 
-- ... 
+- SUBJECT 33:
+	Conditions:
+	Audio signals     : Periodic and Aperiodic 
+        Order of playback : Periodic then Aperiodic (random order)
+        Duration          : 25 seconds	
+
+- SUBJECT 7:
+	Conditions:
+	Audio signals     : Periodic and Aperiodic 
+        Order of playback : Aperiodic then Periodic (random order)
+        Duration          : 25 seconds	
+
+- SUBJECT 5:
+	Conditions:
+	Audio signals     : Periodic and Aperiodic 
+        Order of playback : Aperiodic then Periodic (random order)
+        Duration          : 25 seconds	
+
+

@@ -235,4 +235,4 @@ if __name__ == "__main__":
             break  # Exit the loop if input is valid
         except ValueError:
             print("Invalid input. Please enter a valid id.")
-    run_trial(subject_id=subject_id, duration=25)
+    run_trial(subject_id=subject_id, duration=25, show_plot=True)
