@@ -95,7 +95,7 @@ def plot_taps_with_beats(beats, taps) -> None:
     ax2.set_title("Taps")
 
 
-def print_instructions() -> None:
+def print_instructions(duration:int=None) -> None:
     """
     Prints instructions for the user before the task begins.
     """
@@ -105,8 +105,10 @@ def print_instructions() -> None:
           "the same protocol.\n" +
           "Once each task starts, tap on\n" +
           "the microphone as soon as you\n" +
-          "hear a beat for every beat.\n" +
-          "------ ------------ -----\n")
+          "hear a beat for every beat.")
+    if not duration is None and duration > 0:
+      print(f"Each task will last {duration} seconds.")
+    print("------ ------------ -----\n")
 
 
 def wait_input() -> None:
@@ -205,10 +207,8 @@ def run_trial(start_signal: Signal = None, *args, **kwargs):
     shuffle(task_order)
     if not start_signal is None and task_order[0] != start_signal:
         task_order.reverse()
-    
-    clear_terminal()
 
-    print_instructions()
+    print_instructions(kwargs.get('duration', None))
     wait_input()
 
     # Conduct the first task
@@ -227,4 +227,12 @@ def run_trial(start_signal: Signal = None, *args, **kwargs):
 
 
 if __name__ == "__main__":
-    run_trial(duration=5)
+    clear_terminal()
+    # get subject id
+    while True:
+        try:
+            subject_id = int(input("Please enter subject id: "))
+            break  # Exit the loop if input is valid
+        except ValueError:
+            print("Invalid input. Please enter a valid id.")
+    run_trial(subject_id=subject_id, duration=25, show_plot=True)
