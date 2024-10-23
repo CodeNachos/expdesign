@@ -1,8 +1,20 @@
-from matplotlib import pyplot as plt
+import os
+
 import numpy as np
-from scipy.io.wavfile import read
+
+from io import TextIOWrapper
 from praatio import textgrid
+from scipy.io.wavfile import read
 from scipy.signal import find_peaks
+from matplotlib import pyplot as plt
+
+SUBJECT_GROUPS = {"PWS": 1,
+                  "PNS": 2}
+
+CONDITIONS = {"Aperiodic"    : 1,
+              "PeriodicAlong": 2}
+
+DATAFILE_HEADER = "Sujet\tGroupe\tCondition\tFile\tTrain\tBeatNb\tBeatInstant\tTapInstant\n"
 
 def plot_taps_with_beats(beats, taps, sample_rate, duration: float = None, start: float = .0) -> None:
     beats_duration = len(beats) / sample_rate
@@ -31,7 +43,6 @@ def plot_taps_with_beats(beats, taps, sample_rate, duration: float = None, start
     plt.show()
 
 
-
 def extractInfosFromTier(Tier):
     xmi = []
     xma = []
@@ -43,27 +54,22 @@ def extractInfosFromTier(Tier):
         lab.append(label)
     return xmi, xma, lab
 
-filename = "Grp5/S13-PWS/PeriodicAlong/S13_0009-BaT.wav"
 
-fs, audio_signal = read(filename)
-bips = audio_signal[:,0]
-taps = audio_signal[:,1]
+def open_datafile(fname:str, ovewrite:bool=False) -> TextIOWrapper :
+    try:
+        file_exists = os.path.file_exists(fname)
+        f = open(fname, 'a')
+        if not file_exists:
+            f.write(DATAFILE_HEADER)
+        return f
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+    
 
-tg = textgrid.openTextgrid("Grp5/S13-PWS/PeriodicAlong/S13_0009-BaT.TextGrid", False)
-xmin,xmax,label = extractInfosFromTier(tg.getTier(tg.tierNames[0]))
 
-tpeaks_bips = find_peaks(bips[int(xmin[0]*fs):int(xmax[0]*fs)]/max(bips),
-                         height=0.05,
-                         distance=0.5*fs)[0]
-tpeaks_taps = find_peaks(taps[int(xmin[0]*fs):int(xmax[0]*fs)]/max(taps),
-                         height=0.02,
-                         distance=0.3*fs)[0]
 
-print("'Sujet\tGroupe\tCondition\tFile\tTrain\tBeatNb\tBeatInstant\tTapInstant\n'")
-print(f"")
-
-import glob
-root_dir = "."
-for file_path in glob.glob(root_dir + "/**/*.wav", recursive=True):  # Process only .txt files
-    print(file_path)
-    print(file_path.split('\\')[-3:])
+if __name__ == "__main__":
+    dtfname = "output.txt"
+    dtfile = open_datafile(dtfname)
+    dtfile.close()
