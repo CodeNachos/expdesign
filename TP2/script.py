@@ -59,11 +59,71 @@ tpeaks_taps = find_peaks(taps[int(xmin[0]*fs):int(xmax[0]*fs)]/max(taps),
                          height=0.02,
                          distance=0.3*fs)[0]
 
-print("'Sujet\tGroupe\tCondition\tFile\tTrain\tBeatNb\tBeatInstant\tTapInstant\n'")
-print(f"")
+#print("'Sujet\tGroupe\tCondition\tFile\tTrain\tBeatNb\tBeatInstant\tTapInstant\n'")
+#print(f"")
 
-import glob
-root_dir = "."
-for file_path in glob.glob(root_dir + "/**/*.wav", recursive=True):  # Process only .txt files
-    print(file_path)
-    print(file_path.split('\\')[-3:])
+
+
+def detect_fast_increases(signal, threshold_increase=0.5, threshold_decrease=-0.5):
+    """
+    Detect regions in the signal where there is a fast increase or decrease.
+    Parameters:
+    - signal: The input signal (1D numpy array).
+    - threshold_increase: Threshold for detecting rapid increases in the signal.
+    - threshold_decrease: Threshold for detecting rapid decreases in the signal.
+    """
+    # Compute the first derivative (rate of change) of the signal
+    derivative = np.diff(signal)
+
+    # Detect regions of rapid increase (when the derivative exceeds the increase threshold)
+    start_indices = np.where(derivative > threshold_increase)[0]
+    # Detect regions of rapid decrease (when the derivative goes below the decrease threshold)
+    end_indices = np.where(derivative < threshold_decrease)[0]
+    print(len(start_indices))
+    
+    # Filter start and end indices to match (end should be after the start)
+    patterns = []
+    for start in start_indices:
+        # Find the first end index that comes after the start index
+        possible_ends = end_indices[end_indices > start]
+        if len(possible_ends) > 0:
+            end = possible_ends[0]
+            patterns.append((start, start))
+    print(f"found {len(patterns)} patterns")
+    return patterns, derivative
+
+def plot_detected_patterns(signal, patterns, derivative=None):
+    """
+    Plot the original signal and highlight the detected rapid increase/decrease regions.
+    Optionally also plot the derivative of the signal.
+    """
+    plt.figure(figsize=(10, 5))
+    
+    # Plot the original signal
+    plt.plot(signal, label='Signal')
+    
+    # Highlight the regions where fast increase/decrease were detected
+    for (start, end) in patterns:
+        plt.axvspan(start, end, color='red', alpha=0.3, label='Detected Pattern')
+    
+    # Optionally plot the derivative if provided
+    if derivative is not None:
+        plt.plot(derivative, label='Derivative', linestyle='--')
+    
+    plt.legend()
+    plt.show()
+
+# Example signal (replace with your actual signal)
+signal =taps[int(xmin[0]*fs):int(xmax[0]*fs)]/max(taps)
+
+# Detect patterns based on rapid increases and decreases in the signal
+patterns, derivative = detect_fast_increases(signal, threshold_increase=0.2, threshold_decrease=-0.5)
+
+# Plot the detected patterns
+plot_detected_patterns(signal, patterns, derivative=derivative/max(derivative))
+
+#import glob
+#root_dir = "."
+#for file_path in glob.glob(root_dir + "/**/*.wav", recursive=True):  # Process only .txt files
+#    print(file_path)
+#    print(file_path.split('\\')[-3:])
