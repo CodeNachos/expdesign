@@ -163,10 +163,10 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
         fs, audio_signal = read(file_path)
         bips = audio_signal[:,0]  # First channel for beats
         taps = audio_signal[:,1]  # Second channel for taps
-        bips = bips/ max(bips)
-        taps = taps/ max(taps)
-        bips = np.diff(bips)
-        taps = np.diff(taps)
+        #bips = bips/ max(bips)
+        #taps = taps/ max(taps)
+        #bips = np.diff(bips)
+        #taps = np.diff(taps)
 
         # Open the corresponding TextGrid file
         tg = textgrid.openTextgrid(get_textGrid_path(file_path), False)
@@ -181,10 +181,10 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
             
             # Find peaks for bips and taps between xmin and xmax
             tpeaks_bips = find_peaks(bips[int(xmin[t]*fs):int(xmax[t]*fs)] / max(bips),
-                                     height=0.5,
+                                     height=0.05,
                                      distance=0.3 * fs)[0] + int(xmin[t]*fs)
             tpeaks_taps = find_peaks(taps[int(xmin[t]*fs):int(xmax[t]*fs)] / max(taps),
-                                     height=0.1,
+                                     height=0.05,
                                      distance=0.3 * fs)[0] + int(xmin[t]*fs)
             # Parse information from the file path
             sbj, grp, cond, fl = parse_filepath(file_path)
