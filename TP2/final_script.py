@@ -8,6 +8,7 @@ from praatio import textgrid
 from scipy.io.wavfile import read
 from scipy.signal import find_peaks
 from matplotlib import pyplot as plt
+import matplotlib.colors as mcolors
 
 # Dictionary mapping subject groups to integer values
 SUBJECT_GROUPS = {"PWS": 1,   # PWS: People who stutter
@@ -142,9 +143,6 @@ def get_textGrid_path(fpath_wav: str) -> str:
     return f"{base}.TextGrid"              # Return the path with .TextGrid extension
 
 
-def get_impulse_response_couples():
-    pass
-
 def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
     """
     Processes all .wav files in a directory, extracts beat and tap data, and writes results to a data file.
@@ -189,8 +187,16 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
             # Parse information from the file path
             sbj, grp, cond, fl = parse_filepath(file_path)
             # Write peaks data to the data file
-            for k in range(0, min(len(tpeaks_bips), len(tpeaks_taps))):
-                dtfile.write(f"{sbj}\t{SUBJECT_GROUPS[grp]}\t{CONDITIONS[cond]}\t{fl}\t{t+1}\t{k+1}\t{tpeaks_bips[k]/fs}\t{tpeaks_taps[k]/fs}\n")
+            couples = get_couples(tpeaks_bips, tpeaks_taps,cond)
+            plt.plot(bips[int(xmin[t] * fs):int(xmax[t] * fs)], color="r")
+            plt.plot(taps[int(xmin[t] * fs):int(xmax[t] * fs)], color="b")
+            for n,tap in couples.items():
+                dtfile.write(f"{sbj}\t{SUBJECT_GROUPS[grp]}\t{CONDITIONS[cond]}\t{fl}\t{t + 1}\t{n + 1}\t{tpeaks_bips[n] / fs}\t{tap/ fs}\n")
+                plt.vlines([tpeaks_bips[n]-xmin[t]*fs,tap-xmin[t]*fs], -10000,10000, colors = "black")
+            plt.show()
+
+#           for k in range(0, min(len(tpeaks_bips), len(tpeaks_taps))):
+#               dtfile.write(f"{sbj}\t{SUBJECT_GROUPS[grp]}\t{CONDITIONS[cond]}\t{fl}\t{t+1}\t{k+1}\t{tpeaks_bips[k]/fs}\t{tpeaks_taps[k]/fs}\n")
 
             # Update TextGrid tiers with new peaks
             for k in range(len(tpeaks_bips)):
@@ -205,6 +211,7 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
     dtfile.close()
 
 
+
 def get_datafile_as_dataframe(dtfname: str):
     """
     Reads the output data file into a pandas DataFrame.
@@ -216,6 +223,52 @@ def get_datafile_as_dataframe(dtfname: str):
         pd.DataFrame: A DataFrame containing the data from the file.
     """
     return pd.read_csv(dtfname, sep='\t')
+
+
+def get_couples(b, t, cond):
+    couples = {}
+    bips = b.copy().tolist()
+    taps = t.copy().tolist()
+    last_bip = 0
+    if cond==1:
+        for n,bip in enumerate(bips):
+            next_bip = bips[n+1] if n<len(bips)-1 else None
+            ignored = []
+            for tap in taps:
+                if tap in ignored or tap > next_bip-((next_bip-bip)*25/100):#certainly an ignored bip
+                    break
+                elif next_bip is None and bip <= tap:
+                    couples.update({n:tap})
+                    ignored.append(tap)
+                elif bip <= tap < next_bip:
+                    couples.update({n:tap})
+                    ignored.append(tap)
+                else:
+                    continue
+    else :
+        between_taps = []
+        for n,bip in enumerate(bips):
+            next_bip = bips[n+1] if n<len(bips)-1 else None
+            for tap in taps:
+                if next_bip is not None and tap > next_bip-((next_bip-bip)*25/100):#certainly an ignored bip
+                    break
+                elif next_bip is None:
+                    between_taps.append(tap)
+                elif last_bip <= tap < next_bip:
+                    between_taps.append(tap)
+                else:
+                    continue
+
+            if len(between_taps) > 2:#check for too much taps, remove all bcs we can't choose one to couple
+                couples.update({n: tap})
+            elif len(between_taps) == 2 or len(between_taps) == 1:
+                # the first go with the bip, the second (if present) will be compute next loop
+                couples.update({n: between_taps[0]})
+                taps.remove(between_taps[0])
+            #case len(between_taps) == 0 there is no taps for this bip
+            between_taps = []
+            last_bip = bip
+    return couples
 
 
 if __name__ == "__main__":
