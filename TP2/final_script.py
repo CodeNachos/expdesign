@@ -161,6 +161,8 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
         fs, audio_signal = read(file_path)
         bips = audio_signal[:,0]  # First channel for beats
         taps = audio_signal[:,1]  # Second channel for taps
+        #bips = np.where(bips < 0, 0, bips)
+        #taps = np.where(taps < 0, 0, taps)
         #bips = bips/ max(bips)
         #taps = taps/ max(taps)
         #bips = np.diff(bips)
@@ -179,21 +181,21 @@ def process_data(dtfname: str = "datafile.txt", data_dir: str = "."):
             
             # Find peaks for bips and taps between xmin and xmax
             tpeaks_bips = find_peaks(bips[int(xmin[t]*fs):int(xmax[t]*fs)] / max(bips),
-                                     height=0.05,
+                                     height=0.1,
                                      distance=0.3 * fs)[0] + int(xmin[t]*fs)
             tpeaks_taps = find_peaks(taps[int(xmin[t]*fs):int(xmax[t]*fs)] / max(taps),
                                      height=0.05,
-                                     distance=0.3 * fs)[0] + int(xmin[t]*fs)
+                                     distance=0.1 * fs,
+                                     prominence=0.1)[0] + int(xmin[t]*fs)
+            #plot_taps_with_beats(bips[int(xmin[t]*fs):int(xmax[t]*fs)] / max(bips), taps[int(xmin[t]*fs):int(xmax[t]*fs)] / max(taps), fs, xsamples=False)
             # Parse information from the file path
             sbj, grp, cond, fl = parse_filepath(file_path)
             # Write peaks data to the data file
             couples = get_couples(tpeaks_bips, tpeaks_taps,cond)
-            plt.plot(bips[int(xmin[t] * fs):int(xmax[t] * fs)], color="r")
-            plt.plot(taps[int(xmin[t] * fs):int(xmax[t] * fs)], color="b")
+        
             for n,tap in couples.items():
                 dtfile.write(f"{sbj}\t{SUBJECT_GROUPS[grp]}\t{CONDITIONS[cond]}\t{fl}\t{t + 1}\t{n + 1}\t{tpeaks_bips[n] / fs}\t{tap/ fs}\n")
-                plt.vlines([tpeaks_bips[n]-xmin[t]*fs,tap-xmin[t]*fs], -10000,10000, colors = "black")
-            plt.show()
+            
 
 #           for k in range(0, min(len(tpeaks_bips), len(tpeaks_taps))):
 #               dtfile.write(f"{sbj}\t{SUBJECT_GROUPS[grp]}\t{CONDITIONS[cond]}\t{fl}\t{t+1}\t{k+1}\t{tpeaks_bips[k]/fs}\t{tpeaks_taps[k]/fs}\n")

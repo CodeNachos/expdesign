@@ -25,10 +25,223 @@ item []:
         name = "Bips" 
         xmin = 0 
         xmax = 34.45915 
-        points: size = 0 
+        points: size = 29 
+        points [1]:
+            number = 4.4691 
+            mark = "" 
+        points [2]:
+            number = 5.0227 
+            mark = "" 
+        points [3]:
+            number = 5.66125 
+            mark = "" 
+        points [4]:
+            number = 6.6442 
+            mark = "" 
+        points [5]:
+            number = 7.167 
+            mark = "" 
+        points [6]:
+            number = 7.49315 
+            mark = "" 
+        points [7]:
+            number = 8.6057 
+            mark = "" 
+        points [8]:
+            number = 9.0168 
+            mark = "" 
+        points [9]:
+            number = 10.47785 
+            mark = "" 
+        points [10]:
+            number = 10.94895 
+            mark = "" 
+        points [11]:
+            number = 12.11955 
+            mark = "" 
+        points [12]:
+            number = 12.8166 
+            mark = "" 
+        points [13]:
+            number = 13.86215 
+            mark = "" 
+        points [14]:
+            number = 15.3947 
+            mark = "" 
+        points [15]:
+            number = 15.7879 
+            mark = "" 
+        points [16]:
+            number = 17.09705 
+            mark = "" 
+        points [17]:
+            number = 18.12475 
+            mark = "" 
+        points [18]:
+            number = 19.2239 
+            mark = "" 
+        points [19]:
+            number = 20.00135 
+            mark = "" 
+        points [20]:
+            number = 20.9799 
+            mark = "" 
+        points [21]:
+            number = 21.6814 
+            mark = "" 
+        points [22]:
+            number = 23.3346 
+            mark = "" 
+        points [23]:
+            number = 24.0986 
+            mark = "" 
+        points [24]:
+            number = 24.75095 
+            mark = "" 
+        points [25]:
+            number = 26.1897 
+            mark = "" 
+        points [26]:
+            number = 27.64185 
+            mark = "" 
+        points [27]:
+            number = 28.464 
+            mark = "" 
+        points [28]:
+            number = 29.2638 
+            mark = "" 
+        points [29]:
+            number = 30.3942 
+            mark = "" 
     item [3]:
         class = "TextTier" 
         name = "Taps" 
         xmin = 0 
         xmax = 34.45915 
-        points: size = 0 
+        points: size = 42 
+        points [1]:
+            number = 4.20485 
+            mark = "" 
+        points [2]:
+            number = 4.72415 
+            mark = "" 
+        points [3]:
+            number = 4.85455 
+            mark = "" 
+        points [4]:
+            number = 5.215 
+            mark = "" 
+        points [5]:
+            number = 5.33905 
+            mark = "" 
+        points [6]:
+            number = 5.8498 
+            mark = "" 
+        points [7]:
+            number = 5.98545 
+            mark = "" 
+        points [8]:
+            number = 6.441 
+            mark = "" 
+        points [9]:
+            number = 6.57525 
+            mark = "" 
+        points [10]:
+            number = 7.37145 
+            mark = "" 
+        points [11]:
+            number = 7.511 
+            mark = "" 
+        points [12]:
+            number = 7.74125 
+            mark = "" 
+        points [13]:
+            number = 7.9764 
+            mark = "" 
+        points [14]:
+            number = 8.81565 
+            mark = "" 
+        points [15]:
+            number = 9.21805 
+            mark = "" 
+        points [16]:
+            number = 9.33905 
+            mark = "" 
+        points [17]:
+            number = 10.37975 
+            mark = "" 
+        points [18]:
+            number = 10.71885 
+            mark = "" 
+        points [19]:
+            number = 10.85005 
+            mark = "" 
+        points [20]:
+            number = 11.4725 
+            mark = "" 
+        points [21]:
+            number = 12.3554 
+            mark = "" 
+        points [22]:
+            number = 13.0149 
+            mark = "" 
+        points [23]:
+            number = 14.06045 
+            mark = "" 
+        points [24]:
+            number = 15.59745 
+            mark = "" 
+        points [25]:
+            number = 16.05045 
+            mark = "" 
+        points [26]:
+            number = 17.29785 
+            mark = "" 
+        points [27]:
+            number = 18.33035 
+            mark = "" 
+        points [28]:
+            number = 19.43755 
+            mark = "" 
+        points [29]:
+            number = 19.73925 
+            mark = "" 
+        points [30]:
+            number = 20.3383 
+            mark = "" 
+        points [31]:
+            number = 21.1633 
+            mark = "" 
+        points [32]:
+            number = 21.8905 
+            mark = "" 
+        points [33]:
+            number = 23.5418 
+            mark = "" 
+        points [34]:
+            number = 24.3268 
+            mark = "" 
+        points [35]:
+            number = 25.0224 
+            mark = "" 
+        points [36]:
+            number = 26.3945 
+            mark = "" 
+        points [37]:
+            number = 27.59765 
+            mark = "" 
+        points [38]:
+            number = 27.84015 
+            mark = "" 
+        points [39]:
+            number = 28.71015 
+            mark = "" 
+        points [40]:
+            number = 29.47675 
+            mark = "" 
+        points [41]:
+            number = 30.5722 
+            mark = "" 
+        points [42]:
+            number = 30.8846 
+            mark = "" 
