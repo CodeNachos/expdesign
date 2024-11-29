@@ -1,0 +1,56 @@
+# 0 - Genereal Information ----
+
+# Open data table
+Data <- read.table("Res-AllTaps.txt", header=TRUE, dec=".", na.string="NaN")
+head(Data)
+
+# Define independent variables
+Data$Group <- as.factor(as.character(Data$Group))
+Data$Pattern <- as.factor(as.character(Data$Pattern))
+Data$Sujet <- as.factor(as.character(Data$Sujet))
+
+# Filter datatable to consider a subset of data
+Data_PeriodicAlong <- subset(Data, (Pattern==1))
+Data_PNS_AperiodicAlong <- subset(Data, (Pattern==1)&(Group==0))
+
+# 1 - Generalized linear model ----
+
+Data_subject <- subset(Data, (Data$Sujet==9))
+VD <- Data_subject$RT
+
+# Descriptive stats
+boxplot(VD~Pattern, data=Data_subject)
+
+# Linear model
+M1 <- lm(VD~Pattern, data=Data_subject, na.action=na.exclude)
+summary(M1)
+
+# Contrast / Pairwise comparison
+library(multcomp)
+Contrast <- cbind(1,0)
+Contrast <- rbind(Contrast, cbind(1,1))
+Niveaux <- glht(M1, linfct=Contrast)
+summary(Niveaux)
+
+# 2 - Linear mixed model ----
+Data_PNS <- subset(Data,(Data$Group==0))
+VD <- Data_PNS$RT
+
+# Descriptive stats
+boxplot(VD~Pattern, data=Data_PNS)
+
+# Mixed models
+library(nlme)
+M1 <- lme(VD~Pattern, random=~1|Sujet, data=Data_PNS, method="ML", na.action=na.exclude)
+summary(M1)
+
+# Contrasts / Pairwise comparison
+Contrast <- cbind(1,0)
+Contrast <- rbind(Contrast, cbind(1,1))
+Niveaux <- glht(M1, linfct=Contrast)
+summary(Niveaux)
+
+Contrast <- cbind(0,1)
+Niveaux <- glht(M1, linfct=Contrast)
+summary(Niveaux)
+
