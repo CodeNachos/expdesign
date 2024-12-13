@@ -54,3 +54,13 @@ Contrast <- cbind(0,1)
 Niveaux <- glht(M1, linfct=Contrast)
 summary(Niveaux)
 
+# 3 - Linear mixed models ----
+VD <- Data$RT
+
+# Descriptive stats
+boxplot(VD~Pattern*Group, data=Data)
+
+# Mixt model
+library(nlme)
+M1 <- lme(VD~Pattern *Group, random=~1|Sujet, data=Data, method="ML",na.action=na.exclude())
+summary(M1)
